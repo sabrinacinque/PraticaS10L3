@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="d-flex justify-content-end my-3">
+    <div class="icon-container">
+      <i class="fas fa-heart" style="font-size: 1.5rem; cursor: pointer;"></i>
+      <span class="badge bg-secondary">{{ favoritesCount }}</span>
+      <ul class="list-group mt-2" *ngIf="arrFavorites.length > 0">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let favorite of arrFavorites">
+          {{ favorite.title }}
+          <button class="btn btn-danger btn-sm" (click)="removeFromFavorites(favorite)">X</button>
+        </li>
+      </ul>
+    </div>
+    <div class="icon-container">
+      <i class="fas fa-shopping-cart" style="font-size: 1.5rem; cursor: pointer;"></i>
+      <span class="badge bg-secondary">{{ cartCount }}</span>
+      <ul class="list-group mt-2" *ngIf="arrCart.length > 0">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let cartItem of arrCart">
+          {{ cartItem.title }}
+          <button class="btn btn-danger btn-sm" (click)="removeFromCart(cartItem)">X</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div *ngIf="arrProducts.length === 0" class="alert alert-info">
+    Caricamento in corso
+  </div>
+
+  <div class="row row-cols-1 row-cols-lg-3" *ngIf="arrProducts.length > 0">
+    <div class="col my-5" *ngFor="let product of arrProducts">
+      <div class="card border-black mx-auto" style="width: 28rem; position: relative;">
+        <div class="position-relative">
+          <img [src]="product.images[0]" class="card-img-top sizeImg" alt="product Image">
+          <i
+            class="far fa-heart favorite-icon position-absolute top-0 end-0 m-3"
+            (click)="addToFavorites(product)"
+            style="font-size: 1.5rem; cursor: pointer;">
+          </i>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="card-title"><br>{{ product.title }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+          <p class="card-brand">Brand : {{ product.brand }}</p>
+          <p class="card-price">Price : {{ product.price }}</p>
+          <a class="btn btn-primary" (click)="addToCart(product)">Aggiungi al carrello</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
