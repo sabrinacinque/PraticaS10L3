@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse } from './Modules/api-response';
 import Swal from 'sweetalert2';
+import { iProduct } from './Modules/i-product';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ import Swal from 'sweetalert2';
 export class ProductService {
 
   apiUrl: string = 'https://dummyjson.com/products';
-  arrFavorites: any[] = [];
-  arrCart: any[] = [];
+  arrFavorites: iProduct[] = [];
+  arrCart: iProduct[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +20,7 @@ export class ProductService {
     return this.http.get<ApiResponse>(this.apiUrl);
   }
 
-  addToFavorites(product: any) {
+  addToFavorites(product: iProduct) {
     this.arrFavorites.push(product);
     Swal.fire({
       icon: 'success',
@@ -29,7 +30,7 @@ export class ProductService {
     });
   }
 
-  addToCart(product: any) {
+  addToCart(product: iProduct) {
     this.arrCart.push(product);
     Swal.fire({
       icon: 'success',
@@ -47,7 +48,7 @@ export class ProductService {
     return this.arrCart.length;
   }
 
-  removeFromFavorites(product: any) {
+  removeFromFavorites(product: iProduct) {
     this.arrFavorites = this.arrFavorites.filter(p => p !== product);
     Swal.fire({
       icon: 'success',
@@ -57,7 +58,7 @@ export class ProductService {
     });
   }
 
-  removeFromCart(product: any) {
+  removeFromCart(product: iProduct) {
     this.arrCart = this.arrCart.filter(p => p !== product);
     Swal.fire({
       icon: 'success',
@@ -68,11 +69,11 @@ export class ProductService {
   }
 
 
-  getFavorites(): any[] {
+  getFavorites(): iProduct[] {
     return this.arrFavorites;
   }
 
-  getCart(): any[] {
+  getCart(): iProduct[] {
     return this.arrCart;
   }
 }
