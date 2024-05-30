@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../product.service';
 import { iProduct } from '../../Modules/i-product';
-import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private productSvc: ProductService) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.sub = this.productSvc.getAll()
       .subscribe({
         next: data => {
@@ -33,28 +33,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.updateCounts();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(){
     if (this.sub) {
       this.sub.unsubscribe();
     }
   }
 
-  addToFavorites(product: any) {
+  addToFavorites(product: iProduct) {
     this.productSvc.addToFavorites(product);
     this.updateCounts();
   }
 
-  addToCart(product: any) {
+  addToCart(product: iProduct) {
     this.productSvc.addToCart(product);
     this.updateCounts();
   }
 
-  removeFromFavorites(product: any) {
+  removeFromFavorites(product: iProduct) {
     this.productSvc.removeFromFavorites(product);
     this.updateCounts();
   }
 
-  removeFromCart(product: any) {
+  removeFromCart(product: iProduct) {
     this.productSvc.removeFromCart(product);
     this.updateCounts();
   }
